@@ -184,5 +184,32 @@ func createFriendAgain(dict: [String: String]) -> Friend? {
 // OK...so we've seen the problem with using if/let syntax with Optionals.
 
 ////////////////////////////////////////////////////////
-// Part 5:
+// Part 5: Early Exits Using Guard
 ////////////////////////////////////////////////////////
+
+// In the code we wrote above, we exit at the very end of the function.
+
+// An early exit is when we exit the function as early as possible, the moment
+// we hit an undesirable path of code
+
+// We'll do that with guards
+
+// guard let someValue = someOptionalExpression else {
+//     return nil
+// }
+
+// With guard, the code inside the braces is the FAILURE path.
+
+// Let's rewrite our createFriendAgain func with guards
+
+func createFriendWithGuard(dict: [String: String]) -> Friend? {
+    // early exit if we don't have name and age!
+    guard let name = dict["name"], let age = dict["age"] else {
+        return nil
+    }
+    let address = dict["address"]
+    return Friend(name: name, age: age, address: address)
+}
+
+// The guard statement above makes our function read a little nicer. There are no longer
+// weird branches for our happy path of code.
