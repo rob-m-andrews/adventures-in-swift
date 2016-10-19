@@ -213,3 +213,63 @@ func createFriendWithGuard(dict: [String: String]) -> Friend? {
 
 // The guard statement above makes our function read a little nicer. There are no longer
 // weird branches for our happy path of code.
+
+////////////////////////////////////////////////////////
+// Part 6: Enums with raw values
+////////////////////////////////////////////////////////
+
+// Let's say we're modeling a cash register and we want to model the types of coins
+// we can accept.
+// In US, coins are of 4 types
+
+enum Coin {
+    case Penny
+    case Nickel
+    case Dime
+    case Quarter
+}
+
+
+let coins: [Coin] = [.Penny, .Nickel, .Dime, .Dime, .Quarter, .Quarter, .Quarter]
+
+func totalValue(coins: [Coin]) -> Double {
+    var total: Double = 0
+    for coin in coins {
+        switch coin {
+        case .Penny: total += 0.01
+        case .Nickel: total += 0.05
+        case .Dime: total += 0.1
+        case .Quarter: total += 0.25
+        }
+    }
+    return total
+}
+
+print(totalValue(coins: coins))
+
+// This totalValue function works, but it would be nice if we could specify the value of the coins,
+// rather than having to write it out each time.
+
+enum BetterCoin : Double {
+    case Penny = 0.01
+    case Nickel = 0.05
+    case Dime = 0.10
+    case Quarter = 0.25
+}
+
+// OK, let's re-write the function using the raw values
+func betterTotalValue(coins: [BetterCoin]) -> Double {
+    var total: Double = 0
+    for coin in coins {
+        total += coin.rawValue
+    }
+    return total
+}
+
+let betterCoins: [BetterCoin] = [.Penny, .Nickel, .Dime, .Dime, .Quarter, .Quarter, .Quarter]
+print(betterTotalValue(coins: betterCoins))
+
+// Boom!!! We did it. No more switch statement when using those raw values in the BetterCoin enum.
+
+// *** NOTE ***: Int raw values are auto-incrementing. So you can declare one Int raw value, and the rest
+// will be set for you!
