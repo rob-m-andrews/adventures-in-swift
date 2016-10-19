@@ -147,3 +147,42 @@ if let dailyWeather = weatherDictionary["daily"],
 }
 
 // There are some downsides to the approach above, that we'll soon learn.
+
+////////////////////////////////////////////////////////
+// Part 4: Downsides to using if & let with optionals
+////////////////////////////////////////////////////////
+
+struct Friend {
+    let name: String
+    let age: String
+    let address: String?
+}
+
+// When getting data from the web, you can't rely on certain dictionary values being present.
+func createFriend(dict: [String: String]) -> Friend? {
+    if let name = dict["name"], let age = dict["age"], let address = dict["address"] {
+        return Friend(name: name, age: age, address: address)
+    } else {
+        return nil
+    }
+}
+
+// There's a fundamental problem with this approach above. If we don't get a value for
+// one of the three properties of Friend (name, age, address), we don't create a Friend at all...
+
+// Let's try something else
+// The code below works OK, but it will start to look like pyramid code if more props are added.
+func createFriendAgain(dict: [String: String]) -> Friend? {
+    if let name = dict["name"], let age = dict["age"] {
+        let address = dict["address"]
+        return Friend(name: name, age: age, address: address)
+    } else {
+        return nil
+    }
+}
+
+// OK...so we've seen the problem with using if/let syntax with Optionals.
+
+////////////////////////////////////////////////////////
+// Part 5:
+////////////////////////////////////////////////////////
