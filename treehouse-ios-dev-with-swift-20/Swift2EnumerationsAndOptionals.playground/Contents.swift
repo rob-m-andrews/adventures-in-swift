@@ -273,3 +273,44 @@ print(betterTotalValue(coins: betterCoins))
 
 // *** NOTE ***: Int raw values are auto-incrementing. So you can declare one Int raw value, and the rest
 // will be set for you!
+
+////////////////////////////////////////////////////////
+// Part 7: Initializing with raw values
+////////////////////////////////////////////////////////
+
+enum HTTPStatusCodes: Int {
+    case Continue = 100
+    case Success = 200
+    case Unauthorized = 401
+    case Forbidden = 403
+    case NotFound = 404
+}
+
+// In a real-world application, you have no clue what a status code
+// might be from a user's action.
+let statusCode = 200
+let httpCode = HTTPStatusCodes(rawValue: statusCode)
+
+// If you hold the option key and click on the 'rawValue' method, you'll see that the init method is a
+// failable init method.
+
+////////////////////////////////////////////////////////
+// Part 8: Optional Chaining
+////////////////////////////////////////////////////////
+
+// If you have only optional stored properties on a class, you're not required to write an init,
+// since optionals are initialized to nil by default
+
+// Example of optional chaining:
+// let apartmentNumber = susan.residence?.address?.apartmentNumber
+
+// If any property in this chain evaluates to nil, the value of the const will gracefully be set to nil
+
+// If you check the value of apartmentNumber above, you'll notice it's an optional, so we'll need to unwrap
+// it to use that.
+
+// Unwrapping this optional chain:
+//if let apartmentNumber = susan.residence?.address?.apartmentNumber {
+//    print(apartmentNumber)
+//}
+
